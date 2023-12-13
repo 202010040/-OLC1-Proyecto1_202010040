@@ -1,5 +1,6 @@
 package compi1.proyecto1;
 
+
 /**
  * Hello world!
  *
@@ -10,8 +11,7 @@ public class App
     {
 
     	PruebaSimplificada();
-    	//pruebaCombinada();
- 
+    	
 
 }
     public static void pruebaKleene() {
@@ -34,10 +34,8 @@ public class App
       Conjunto conj_a = new Conjunto("a", 0);
       Conjunto conj_b = new Conjunto("b", conj_a.get_ultimo_num());
       conj_a.Concatenar(conj_b);
-      System.out.println(conj_a.get_ultimo_num());
-      System.out.println(conj_b.get_ultimo_num());
     // 1|2
-      Conjunto conj_1 = new Conjunto("1", conj_a.get_ultimo_num() );
+      Conjunto conj_1 = new Conjunto("1", conj_a.get_ultimo_num());
       Conjunto conj_2 = new Conjunto("2", conj_1.get_ultimo_num() + 1);
       conj_1.OR_Conjunto(conj_2);
     // ab(1|2)
@@ -50,7 +48,7 @@ public class App
       conj_1_.Kleene();
     // ab(1|2)(1|2)*
       conj_a.Concatenar(conj_1_);
-      //conj_a.Recorrer();
+      conj_a.Graficar("Automata-Thompson");
     }
     
     public static void pruebaCombinada() {
@@ -107,7 +105,7 @@ public class App
         // Se une hace el (1|2)*
         EstadoAutomata final_12_K = inicial_1_.HacerKleene(final_12_);
         final_12.Concatenar(final_12, inicial_1_);
-        inicial_1_.PrintEstados(inicial_a);
+        inicial_a.GraficarAutomata("Automata1.png");
         System.out.println( "Fin Prueba 4 AFN Proyecto 1" );
     }
 

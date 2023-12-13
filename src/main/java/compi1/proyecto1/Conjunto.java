@@ -1,5 +1,6 @@
 package compi1.proyecto1;
 
+
 public class Conjunto {
 	 private EstadoAutomata Primera_Pos;
 	 private EstadoAutomata Ultima_Pos;
@@ -47,15 +48,20 @@ public class Conjunto {
 		 // Hace Or y elnodo final del conjunto
 		 this.Ultima_Pos = this.Primera_Pos.HacerOR(this.Ultima_Pos, conj_siguiente.getPrimeraPos(), conj_siguiente.getUltimaPos());
 		 
-	 }
+	 } 
 	 
 	 public void Kleene() {
 		 this.Ultima_Pos = this.Primera_Pos.HacerKleene(this.Ultima_Pos);
 	 }
+	 
 	 // ----------> OPERACIONES SIMPLIFICADAS FIN
 	 
 	 // ----------> Recorrer
 	 public void Recorrer () {
 		 this.Primera_Pos.PrintEstados(this.Primera_Pos);
+	 }
+	 //----------> Crea el grafo del automata
+	 public void Graficar(String nombre_grafo) {
+		 this.Primera_Pos.GraficarAutomata(nombre_grafo + ".png");
 	 }
 }

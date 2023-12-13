@@ -1,6 +1,14 @@
 package compi1.proyecto1;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import guru.nidi.graphviz.attribute.Label;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.Factory;
+import guru.nidi.graphviz.model.MutableGraph;
 
 /*
  * La idea es que esta clase funcione como un nodo y sea de la siguiente manera:
@@ -268,16 +276,16 @@ public class EstadoAutomata implements Cloneable {
 		b_inicial.Recorrer_y_SetFalse(b_inicial);
 		
 		// Paso 4, se conecta la S0 con inicial_a e inicial_b
-		this.SetEstadoSiguiente(copia_reemplazo, "Epsilon");
-		this.SetEstadoSiguiente(b_inicial, "Epsilon");
+		this.SetEstadoSiguiente(copia_reemplazo, "\u03B5");
+		this.SetEstadoSiguiente(b_inicial, "\u03B5");
 		
 		// Paso 5, crear el nodo final
 		int num_final_b = b_final.getNumero_Estado() + 1;
 		EstadoAutomata nodo_final = new EstadoAutomata(num_final_b);
 		
 		// Paso 6, conectar el final de a y b con el nodo final
-		a_final.SetEstadoSiguiente(nodo_final, "Epsilon");
-		b_final.SetEstadoSiguiente(nodo_final, "Epsilon");
+		a_final.SetEstadoSiguiente(nodo_final, "\u03B5");
+		b_final.SetEstadoSiguiente(nodo_final, "\u03B5");
 		
 		// Paso 7, retornar una tupla de objetos
 		return  nodo_final;
@@ -346,19 +354,56 @@ public class EstadoAutomata implements Cloneable {
 		EstadoAutomata nodo_final = new EstadoAutomata(num_final);
 		
 		// Paso 4
-		estado_final.SetEstadoSiguiente(copia_reemplazo, "Epsilon");
+		estado_final.SetEstadoSiguiente(copia_reemplazo, "\u03B5");
 		
 		// Paso 5
-		this.SetEstadoSiguiente(nodo_final, "Epsilon");
+		this.SetEstadoSiguiente(nodo_final, "\u03B5");
 		
 		// Paso 6
-		this.SetEstadoSiguiente(copia_reemplazo, "Epsilon");
-		estado_final.SetEstadoSiguiente(nodo_final,  "Epsilon");
+		this.SetEstadoSiguiente(copia_reemplazo, "\u03B5");
+		estado_final.SetEstadoSiguiente(nodo_final,  "\u03B5");
 		
 		// Paso 7, retornar el nodo final
 		return  nodo_final;
 		
 	}
 	//-------------> Metodo para cleene FIN
+	
+	//-------------> Metodos para graficar Con graphviz INICIO
+	public void GraficarNodo (EstadoAutomata estado, MutableGraph g ) {
+		// Se recorre el ArrayList si aun no ha sido recorrido
+		if (estado.getRecorrido() == false ) {
+			for (Transicion i : estado.Transiciones) {
+				// Evita la recurividad, valida que el siguiente del siguiente no sea nulo o el mismo
+				if (i.Recorrido == false) {
+					// Se imprime el estado actual y la transicion al siguiente
+					g.add(Factory.mutNode(estado.getNumero_Estado() + "").addLink(Factory.to(Factory.mutNode(i.getEstado_Siguiente().getNumero_Estado() + "")).with(Label.of(i.getNombre_Transicion()))));
+					
+					i.Recorrido = true;
+					GraficarNodo(i.getEstado_Siguiente(), g);
+				}
+				
+			}
+			
+			// Una vez recorrido todos los estados se indica que ya se finalizo el recorrido
+			// Esto para evitar los ciclos sin fin
+			estado.setRecorrido(true);
+		}
+	}
+	
+	public void GraficarAutomata(String nombre_imagen) {
+        // Crear un gráfico mutable
+        MutableGraph g = Factory.mutGraph().setDirected(true);
+        // Añadir nodos y aristas
+        this.GraficarNodo(this, g);
+        // Renderizar el gráfico a un archivo
+        try {
+            Graphviz.fromGraph(g).width(200).render(Format.PNG).toFile(new File(nombre_imagen));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	//-------------> Metodos para graficar Con graphviz FINAL
 	
 }
