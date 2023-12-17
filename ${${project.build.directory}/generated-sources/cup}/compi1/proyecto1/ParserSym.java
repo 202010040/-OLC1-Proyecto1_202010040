@@ -29,8 +29,8 @@ public interface ParserSym {
   public static final int SQT = 23;
   public static final int NEWLINE = 22;
   public static final int ESCSQT = 20;
-  public static final int DOT = 14;
   public static final int error = 1;
+  public static final int DOT = 14;
   public static final int FLECH = 6;
   public static final int DOBDOT = 5;
   public static final String[] terminalNames = new String[] {
