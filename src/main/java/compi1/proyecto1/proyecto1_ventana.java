@@ -1,5 +1,10 @@
 package compi1.proyecto1;
 
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -23,6 +28,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class proyecto1_ventana extends JFrame {
 
@@ -59,9 +68,6 @@ public class proyecto1_ventana extends JFrame {
 		
 		mn_Archivo = new JMenu("Archivo");
 		menuBar_principal.add(mn_Archivo);
-		
-		JMenuItem mntm_Abrir = new JMenuItem("Abrir");
-		mn_Archivo.add(mntm_Abrir);
 		
 		JMenuItem mntm_Guardar = new JMenuItem("Guardar");
 		mn_Archivo.add(mntm_Guardar);
@@ -160,16 +166,36 @@ public class proyecto1_ventana extends JFrame {
 		panel_Editor.setLayout(null);
 		
 		TextArea textArea = new TextArea();
+		textArea.setForeground(new Color(0, 128, 128));
 		textArea.setBackground(new Color(2, 0, 21));
-		textArea.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		textArea.setFont(new Font("Consolas", Font.BOLD, 15));
 		textArea.setBounds(10, 43, 596, 352);
 		panel_Editor.add(textArea);
+		
+		JMenuItem mntm_Abrir = new JMenuItem("Abrir");
+		mntm_Abrir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirFileChooser(textArea);
+			}
+		});
+		mn_Archivo.add(mntm_Abrir);
+		
 		
 		JLabel lbl_Editor = new JLabel("Editor");
 		lbl_Editor.setBounds(10, 23, 46, 14);
 		panel_Editor.add(lbl_Editor);
 		
 		JButton btn_Ejecutar = new JButton("Ejecutar");
+		btn_Ejecutar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                            try{
+                                textArea.getText();
+                            }
+                            catch(Exception ex){
+                            
+                            }
+			}
+		});
 		btn_Ejecutar.setBounds(364, 14, 89, 23);
 		panel_Editor.add(btn_Ejecutar);
 		
@@ -177,4 +203,33 @@ public class proyecto1_ventana extends JFrame {
 		btn_GenerarReporte.setBounds(463, 14, 143, 23);
 		panel_Editor.add(btn_GenerarReporte);
 	}
+	
+    public void abrirFileChooser(TextArea textArea) {
+        JFileChooser fileChooser = new JFileChooser();
+        int seleccion = fileChooser.showOpenDialog(textArea);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            abrirArchivo(archivo.getPath(), textArea);
+        }
+    }
+    
+    public void abrirArchivo(String ruta, TextArea textArea) {
+        File archivo = new File(ruta);
+        try {
+            FileReader fr = new FileReader(archivo);
+            BufferedReader br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+            	textArea.append(linea + "\n");
+            }
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+     
+    
 }

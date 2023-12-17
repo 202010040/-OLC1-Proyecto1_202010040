@@ -1,0 +1,124 @@
+package compi1.proyecto1;
+
+import java_cup.runtime.*;
+
+
+class Parser;
+
+terminal Llave_A,
+        Llave_C,
+        CONJ,
+        DOBDOT,
+        FLECH,
+        RCONJ,
+        COMMA,
+        ID,
+        NUM,
+        PAR_A,
+        PAR_C,
+        DOT,
+        PIPE,
+        MULTIPLY,
+        PLUS,
+        INTERROGACION,
+        PCOMMA,
+        ESCSQT,
+        ESCDQT,
+        NEWLINE,
+        SQT,
+        DQT;
+
+non terminal Arbol S,
+                CONJUNTOS, 
+                CONJUNTO,
+                EXPRESIONES,
+                ITEMSCONJ, 
+                L; 
+
+start with S;
+
+S ::= Llave_A:lla CONJUNTOS:conjs EXPRESIONES:exp Llave_C {:
+        
+    :};
+
+
+CONJUNTOS ::= CONJUNTOS CONJUNTO
+          | error CONJUNTO;  
+
+CONJUNTO ::= CONJ DOBDOT ID FLECH RCONJ PCOMMA 
+        | CONJ DOBDOT ID FLECH ITEMSCONJ PCOMMA;
+
+ITEMSCONJ ::= ITEMSCONJ COMMA ID
+        | ITEMSCONJ COMMA NUM
+        | ID
+        | NUM;
+
+EXPRESIONES ::= EXPRESIONES:exp ID FLECH L:l1 PCOMMA{:
+        exp.Arboles.add(l1);
+        ListaArboles list = new ListaArboles();
+        list.Siguiente = exp;
+        RESULT = list;
+        :}
+        | ID FLECH L:l1 PCOMMA{:
+        ListaArboles list = new ListaArboles();
+        list.Arboles.add(l1);
+        RESULT = list;
+    :} ;
+
+
+L ::= DOT:dot L:l1 L:l2 {:
+        Arbol l = new Arbol(dot.toString());
+        l.addHijo(l1);
+        l.addHijo(l2);
+        RESULT = l;
+    :}
+    | PIPE:pipe L:l1 L:l2 {:
+        Arbol l = new Arbol(pipe.toString());
+        l.addHijo(l1);
+        l.addHijo(l2);
+        RESULT = l;
+    :}
+    | MULTIPLY:mt L:l1  {:
+        Arbol l = new Arbol(mt.toString());
+        l.addHijo(l1);
+        RESULT = l;
+    :}
+    | PLUS:plus L:l1  {:
+        Arbol l = new Arbol(plus.toString());
+        l.addHijo(l1);
+        RESULT = l;
+    :}
+    | INTERROGACION:interr L:l1  {:
+        Arbol l = new Arbol(interr.toString());
+        l.addHijo(l1);
+        RESULT = l;
+    :}
+    | PAR_A ID:id PAR_C {:
+        Arbol l = new Arbol(id.toString());
+        RESULT = l;
+    :}
+    | SQT ID:id SQT {:
+        Arbol l = new Arbol(id.toString());
+        RESULT = l;
+    :}
+    | DQT ID:id DQT {:
+        Arbol l = new Arbol(id.toString());
+        RESULT = l;
+    :}
+    | NEWLINE:newln {:
+        Arbol l = new Arbol(newln.toString());
+        RESULT = l;
+    :}
+    | ESCSQT:comsim {:
+        Arbol l = new Arbol(comsim.toString());
+        RESULT = l;
+    :}
+    | ESCDQT:comdob {:
+        Arbol l = new Arbol(comdob.toString());
+        RESULT = l;
+    :}
+    | ID:id  {:
+        Arbol l = new Arbol(id.toString());
+        RESULT = l;
+    :}
+    | error;

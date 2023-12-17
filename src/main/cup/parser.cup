@@ -1,0 +1,137 @@
+package compi1.proyecto1;
+
+import java_cup.runtime.*;
+
+class Parser; 
+
+parser code{:
+
+public void syntax_error(Symbol s){
+	System.out.println("Sintax error: " +s.value + " en la línea " + s.right+ " en la columna " + s.left);
+}
+
+public void unrecovered_syntax_error(Symbol s)throws java.lang.Exception{
+	System.out.println("Sintax error: " +s.value + " en la línea " + s.right+" en la columna " + s.left);
+}
+
+:};
+
+   
+terminal Llave_A,
+        Llave_C,
+        CONJ,
+        DOBDOT,
+        FLECH,
+        RCONJ,
+        COMMA,
+        ID,
+        NUM,
+        CHAR,
+        PAR_A,
+        PAR_C,
+        DOT,
+        PIPE,
+        MULTIPLY,
+        PLUS,
+        INTERROGACION,
+        PCOMMA,
+        ESCSQT,
+        ESCDQT,
+        NEWLINE,
+        SQT,
+        DQT;
+
+ 		  
+non terminal Arbol L, OP1, OP2;
+
+non terminal ListaArboles T, C, CONJUNTO, ITEMSCONJ, S;
+
+start with T;
+
+T ::= Llave_A C S:s1 Llave_C {:
+        ListaArboles t = new ListaArboles();
+        t.addSig(s1);
+        RESULT = t;
+    :};
+
+C ::= C CONJUNTO
+    | CONJUNTO;
+
+CONJUNTO ::= CONJ DOBDOT ID FLECH RCONJ PCOMMA 
+        | CONJ DOBDOT ID FLECH ITEMSCONJ PCOMMA;
+
+ITEMSCONJ ::= ITEMSCONJ COMMA ID
+        | ITEMSCONJ COMMA NUM
+        | ID
+        | NUM;
+
+
+S ::= S:s1 ID FLECH L:l1 PCOMMA{:
+	ListaArboles s = new ListaArboles();
+        s.addSig(s1);
+	s.addArbol(l1);
+	RESULT = s;
+    :} 
+
+    | ID FLECH L:l1 PCOMMA{:
+	ListaArboles s = new ListaArboles();
+	s.addArbol(l1);
+	RESULT = s;
+    :} ; 
+
+L ::= DOT:dot L:l1 L:l2 {:
+        Arbol l = new Arbol(dot.toString());
+        l.addHijo(l1);
+        l.addHijo(l2);
+        RESULT = l;
+    :}
+    | PIPE:pipe L:l1 L:l2 {:
+        Arbol l = new Arbol(pipe.toString());
+        l.addHijo(l1);
+        l.addHijo(l2);
+        RESULT = l;
+    :}
+    | MULTIPLY:mt L:l1  {:
+        Arbol l = new Arbol(mt.toString());
+        l.addHijo(l1);
+        RESULT = l;
+    :}
+    | PLUS:plus L:l1  {:
+        Arbol l = new Arbol(plus.toString());
+        l.addHijo(l1);
+        RESULT = l;
+    :}
+    | INTERROGACION:interr L:l1  {:
+        Arbol l = new Arbol(interr.toString());
+        l.addHijo(l1);
+        RESULT = l;
+    :}
+    | PAR_A ID:id PAR_C {:
+        Arbol l = new Arbol(id.toString());
+        RESULT = l;
+    :}
+    | CHAR:ch {:
+        Arbol l = new Arbol(ch.toString());
+        RESULT = l;
+    :}
+    | NEWLINE:newln {:
+        Arbol l = new Arbol(newln.toString());
+        RESULT = l;
+    :}
+    | ESCSQT:comsim {:
+        Arbol l = new Arbol(comsim.toString());
+        RESULT = l;
+    :}
+    | ESCDQT:comdob {:
+        Arbol l = new Arbol(comdob.toString());
+        RESULT = l;
+    :}
+    | ID:id  {:
+        Arbol l = new Arbol(id.toString());
+        RESULT = l;
+    :}
+    | NUM:num  {:
+        Arbol l = new Arbol(num.toString());
+        RESULT = l;
+    :}
+    | error ;

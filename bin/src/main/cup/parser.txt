@@ -1,0 +1,80 @@
+package compi1.proyecto1;
+
+import java_cup.runtime.*;
+
+class Parser;
+   
+terminal ID, 
+ 		  NUM, 
+ 		  DOT, 
+ 		  PIPE,
+ 		  MULTIPLY,
+ 		  PLUS,
+ 		  INTERROGACION,
+ 		  COMMA, 
+ 		  PCOMMA,  
+ 		  Llave_A,
+ 		  Llave_C;
+ 		  
+non terminal Arbol  L, OP1, OP2;
+
+start with L;
+
+L ::= OP1:op1 L:l1 {:
+	Arbol l = new Arbol("L");
+	l.addHijo(l1);
+	l.addHijo(op1);
+	RESULT = l;
+:}
+
+| OP2:op2 L:l1 L:l2{:
+	Arbol l = new Arbol("L");
+	l.addHijo(l1);
+        l.addHijo(l2);
+	RESULT = l;
+:} 
+
+| ID:id {:
+	Arbol l = new Arbol("L");
+	l.addHijo(new Arbol(id.toString()));
+	RESULT = l;
+:}
+
+| NUM:num {:
+	Arbol l = new Arbol("L");
+	l.addHijo(new Arbol(num.toString()));
+	RESULT = l;
+:};
+
+
+OP1 ::= PLUS:plus {:
+	Arbol l = new Arbol("L");
+	l.addHijo(new Arbol(plus.toString()));
+	RESULT = l;
+:}
+
+| MULTIPLY:mt {:
+	Arbol l = new Arbol("L");
+	l.addHijo(new Arbol(mt.toString()));
+	RESULT = l;
+:}
+
+| INTERROGACION:interr {:
+	Arbol l = new Arbol("L");
+	l.addHijo(new Arbol(interr.toString()));
+	RESULT = l;
+:} ;
+
+
+
+OP2 ::= PIPE:pipe {:
+	Arbol l = new Arbol("L");
+	l.addHijo(new Arbol(pipe.toString()));
+	RESULT = l;
+:}
+
+| DOT:dot {:
+	Arbol l = new Arbol("L");
+	l.addHijo(new Arbol(dot.toString()));
+	RESULT = l;
+:} ; 

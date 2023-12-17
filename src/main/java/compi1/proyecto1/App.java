@@ -1,5 +1,6 @@
 package compi1.proyecto1;
 
+import java.io.StringReader;
 
 /**
  * Hello world!
@@ -7,14 +8,43 @@ package compi1.proyecto1;
  */
 public class App 
 {
-    public static void main( String[] args ) throws CloneNotSupportedException
+    public static void main( String[] args ) throws Exception
     {
 
-    	PruebaSimplificada();
+    	pruebaArbol();
     	
 
 }
-    public static void pruebaKleene() {
+    public static void pruebaArbol() throws Exception {
+        System.out.println( "------- Prueba Arbol -------" );
+        // Toma una entrada y la manda al buffer
+        String entrada = """
+                         {
+                         CONJ: letra -> a~z;
+                         CONJ: letraMayus -> A~Z;
+                         CONJ: digito -> 0-9;
+                         CONJ: bool -> 0,1;
+                         
+                         compi -> . . . . c o m p i ;
+                         int ->  . . i n t ;
+                         float-> ...(digito)*(digito)".".(digito)*(digito);
+                         nombre -> +.(letraMayus)*(letra) ;
+                         or -> || .c 1 .c 2 .c 3;
+                         id -> ... a b b * | a b ;
+                         web -> ......w w w ".".(letra)*(letra)".".(letra)*(letra);
+                         ip ->..........(dig)(dig)(dig)"."(dig)(dig)(dig)"."(dig)(dig)(dig);
+                         }
+                         """; 
+        lexEx2 lex2 = new lexEx2(new StringReader(entrada));
+        Parser sintax = new Parser(lex2);
+        // Obtiene el valor del objeto arbol y lo manda a un arbol llamado raiz
+        // Va de texto a una estructura de datos jerarquica
+        ListaArboles raiz = (ListaArboles)sintax.parse().value;
+        raiz.GraficarArboles(raiz, "Grafo", 0);
+        System.out.println("------- Fin Prueba Arbol  -------- ");
+    }
+     
+      public static void pruebaKleene() {
     	
       System.out.println( "Prueba 2 AFN Proyecto 1" );
       // Suponga que se tiene la expresion regular a*
