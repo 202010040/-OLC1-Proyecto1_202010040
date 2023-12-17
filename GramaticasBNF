@@ -1,0 +1,6 @@
+<T> ::= "{" <C> <S> "}"
+<C> ::= <C> <CONJUNTO> | <CONJUNTO>
+<CONJUNTO> ::= "CONJ" "::=" "ID" "->" "RCONJ" ";" | "CONJ" "::=" "ID" "->" <ITEMSCONJ> ";"
+<ITEMSCONJ> ::= <ITEMSCONJ> "," "ID" | <ITEMSCONJ> "," "NUM" | "ID" | "NUM"
+<S> ::= <S> "ID" "->" <L> ";" | "ID" "->" <L> ";"
+<L> ::= "." <L> <L> | "|" <L> <L> | "*" <L> | "+" <L> | "?" <L> | "(" "ID" ")" | "CHAR" | "NEWLINE" | "ESCSQT" | "ESCDQT" | "ID" | "NUM"
