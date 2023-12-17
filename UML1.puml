@@ -1,0 +1,114 @@
+@startuml
+class compi1.proyecto1.App
+class compi1.proyecto1.Arbol
+class compi1.proyecto1.Conjunto
+class compi1.proyecto1.CustomOutputStream
+class compi1.proyecto1.EstadoAutomata
+class compi1.proyecto1.ListaArboles
+class compi1.proyecto1.Transicion
+class compi1.proyecto1.proyecto1_ventana
+class guru.nidi.graphviz.attribute.Label
+class guru.nidi.graphviz.engine.Format
+class guru.nidi.graphviz.engine.Graphviz
+class guru.nidi.graphviz.model.Factory
+class guru.nidi.graphviz.model.MutableGraph
+class java.awt.Color
+class java.awt.EventQueue
+class java.awt.Font
+class java.awt.Panel
+class java.awt.SystemColor
+class java.awt.TextArea
+class java.awt.event.ActionEvent
+class java.awt.event.ActionListener
+class java.io.BufferedReader
+class java.io.BufferedWriter
+class java.io.File
+class java.io.FileReader
+class java.io.FileWriter
+class java.io.IOException
+class java.io.OutputStream
+class java.io.PrintStream
+class java.io.StringReader
+class java.time.LocalDateTime
+class java.util.ArrayList
+class javax.swing.ImageIcon
+class javax.swing.JButton
+class javax.swing.JFileChooser
+class javax.swing.JFrame
+class javax.swing.JInternalFrame
+class javax.swing.JLabel
+class javax.swing.JMenu
+class javax.swing.JMenuBar
+class javax.swing.JMenuItem
+class javax.swing.JPanel
+class javax.swing.JScrollBar
+class javax.swing.JScrollPane
+class javax.swing.JTabbedPane
+class javax.swing.JTable
+class javax.swing.JTextArea
+class javax.swing.JToggleButton
+class javax.swing.border.EmptyBorder
+class javax.swing.filechooser.FileNameExtensionFilter
+class javax.swing.table.DefaultTableModel
+compi1.proyecto1.App ..> java.io.StringReader
+compi1.proyecto1.Arbol ..> guru.nidi.graphviz.attribute.Label
+compi1.proyecto1.Arbol ..> guru.nidi.graphviz.engine.Format
+compi1.proyecto1.Arbol ..> guru.nidi.graphviz.engine.Graphviz
+compi1.proyecto1.Arbol ..> guru.nidi.graphviz.model.Factory
+compi1.proyecto1.Arbol ..> guru.nidi.graphviz.model.MutableGraph
+compi1.proyecto1.Arbol ..> java.io.File
+compi1.proyecto1.Arbol ..> java.io.IOException
+compi1.proyecto1.Arbol ..> java.util.ArrayList
+compi1.proyecto1.CustomOutputStream ..> java.awt.TextArea
+compi1.proyecto1.CustomOutputStream ..> java.io.BufferedReader
+compi1.proyecto1.CustomOutputStream ..> java.io.BufferedWriter
+compi1.proyecto1.CustomOutputStream ..> java.io.File
+compi1.proyecto1.CustomOutputStream ..> java.io.FileReader
+compi1.proyecto1.CustomOutputStream ..> java.io.FileWriter
+compi1.proyecto1.CustomOutputStream ..> java.io.IOException
+compi1.proyecto1.CustomOutputStream ..> java.io.PrintStream
+compi1.proyecto1.CustomOutputStream ..> java.io.StringReader
+compi1.proyecto1.CustomOutputStream ..> java.time.LocalDateTime
+compi1.proyecto1.CustomOutputStream ..> javax.swing.ImageIcon
+compi1.proyecto1.CustomOutputStream ..> javax.swing.JFileChooser
+compi1.proyecto1.CustomOutputStream ..> javax.swing.JLabel
+compi1.proyecto1.CustomOutputStream ..> javax.swing.JScrollPane
+compi1.proyecto1.CustomOutputStream ..> javax.swing.JTextArea
+compi1.proyecto1.CustomOutputStream ..> javax.swing.filechooser.FileNameExtensionFilter
+compi1.proyecto1.EstadoAutomata ..> guru.nidi.graphviz.attribute.Label
+compi1.proyecto1.EstadoAutomata ..> guru.nidi.graphviz.engine.Format
+compi1.proyecto1.EstadoAutomata ..> guru.nidi.graphviz.engine.Graphviz
+compi1.proyecto1.EstadoAutomata ..> guru.nidi.graphviz.model.Factory
+compi1.proyecto1.EstadoAutomata ..> guru.nidi.graphviz.model.MutableGraph
+compi1.proyecto1.EstadoAutomata ..> java.io.File
+compi1.proyecto1.EstadoAutomata ..> java.io.IOException
+compi1.proyecto1.EstadoAutomata ..> java.util.ArrayList
+compi1.proyecto1.ListaArboles ..> java.util.ArrayList
+compi1.proyecto1.proyecto1_ventana ..> java.awt.Color
+compi1.proyecto1.proyecto1_ventana ..> java.awt.EventQueue
+compi1.proyecto1.proyecto1_ventana ..> java.awt.Font
+compi1.proyecto1.proyecto1_ventana ..> java.awt.Panel
+compi1.proyecto1.proyecto1_ventana ..> java.awt.SystemColor
+compi1.proyecto1.proyecto1_ventana ..> java.awt.TextArea
+compi1.proyecto1.proyecto1_ventana ..> java.awt.event.ActionEvent
+compi1.proyecto1.proyecto1_ventana ..> java.awt.event.ActionListener
+compi1.proyecto1.proyecto1_ventana ..> java.io.BufferedReader
+compi1.proyecto1.proyecto1_ventana ..> java.io.File
+compi1.proyecto1.proyecto1_ventana ..> java.io.FileReader
+compi1.proyecto1.proyecto1_ventana ..> java.io.IOException
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JButton
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JInternalFrame
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JLabel
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JMenu
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JMenuBar
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JMenuItem
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JPanel
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JScrollBar
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JScrollPane
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JTabbedPane
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JTable
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JTextArea
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.JToggleButton
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.border.EmptyBorder
+compi1.proyecto1.proyecto1_ventana ..> javax.swing.table.DefaultTableModel
+@enduml
